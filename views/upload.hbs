@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    <!-- add to document <head> -->
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <style>
+        .filepond--item{
+            width: 140px;
+            height: 200px;
+        }
+    </style>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <!-- VANILLA JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageResize,
+                FilePondPluginFileEncode
+            );
+            // https://pqina.nl/filepond/docs/patterns/api/filepond-object/#setting-options
+            FilePond.setOptions({
+                stylePanelAspectRatio: 150 / 100,
+                imageResizeTargetWidth: 100,
+                imageResizeTargetHeight: 150,
+            })
+            FilePond.parse(document.body);
+        });
+    </script>
+</head>
+
+<body>
+    <br>
+    <br>
+    <div class="ui container">
+    <form action="/add" class="ui form" method="post">
+            <div class="field">
+                <label for="name">Title</label>
+                <input type="text" name="title">
+            </div>
+            <div class="field">
+                <label for="type">Category</label>
+                <input type="text" name="category">
+            </div>
+            <div class="field">
+                <label for="type">Strike</label>
+                <input type="text" name="strike">
+            </div>
+            <div class="field">
+                <label for="type">Quantity</label>
+                <input type="text" name="quantity">
+            </div>
+            <div class="field">
+                <label for="type">Saved</label>
+                <input type="text" name="saved">
+            </div>
+            <div class="field">
+                <label for="type">Price</label>
+                <input type="text" name="price">
+            </div>
+            <div class="field">
+                <label for="type">Veg dispplay</label>
+                <input type="text" name="veg">
+            </div>
+            <div class="field">
+                <label for="type">Non-veg display</label>
+                <input type="text" name="nonveg">
+            </div>
+        <!-- HERE WE NEED TO USE FILEPOND -->
+        <div class="ui field">
+            <label for="img">Image</label>
+            <input type="file" name="img" id="img" class="filepond filepond--item">
+        </div>
+        <button class="ui fluid blue button" type="submit">Save</button>
+    </form>
+</div>
+
+<br><br>
+<!--<div class="ui container">
+    <% if(movie) { %>
+        <div class="ui small stackable images ">
+            <% movie.forEach(m => { %>
+            <img src="<%= m.coverImagePath %>" alt="" class="ui image">
+            <% }) %>
+        </div>
+    <% } %>
+</div>-->
+</body>
+
+</html>

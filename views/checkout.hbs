@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Delivery details</title>
+  <!--linking bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!--linkking fontawesome-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!--responsive page layout-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <link rel="shortcut icon" type="x-image/icon" href="favicon.ico">
+    <link rel="icon" type="x-image/icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="checkout.css">
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<body>
+	<div class="banner">
+    <button type="post" style="margin-left: 6px;margin-top: 10px;"><a href="/index"><font color="#001f3f">Home Page</font></a></button>
+    <!--<div id="account">
+    		<a onclick="fn()"><i class="fa fa-user-circle-o fa-2x"></i></a>
+   		</div>
+    	<div id="menu">
+	    	<ul>
+	    		<li><a href="/profile"><font color="blank">Profile</a></li>
+	    		<li><a href="/cart"><font color="blank">Cart</a></li>
+				<li><a href="/fav"><font color="blank">Favourites</a></li>
+	    		<li><a href="/logout" target="blank"><font color="blank">Logout!</font></a></li>
+	    	</ul>
+	    </div>-->
+      <a href="/logout" target="blank" style="float: right;">Logout</a>
+	<p style="margin-left: 6px;margin-top: 10px;"><font color="#e33745"><a href="/index">Home</a> > <a href="/main">Dishes</a> > <a href="/cart">Cart</a> > Checkout</font></p>
+	<br>
+	<h1><b>You are just one step away!</b></h1>
+	<br>
+  </div>
+  <center>
+  	<br>
+<button id="today" class="today" style="margin: 10px;">Today</button>
+<button id="other" class="other">Otherday</button>
+</center>
+
+<div id="todaydate" class="custom_time" style="display: none;color: #fff">
+	<font>Time slots available for today:</font>
+  	<ul>
+  	<li>
+      <input type="radio" name="slot" value="Within 01:00 am - 01:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">01:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 02:00 am - 02:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">02:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 03:00 am - 03:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">03:00</span> <small>am</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 04:00 am - 04:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">04:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 05:00 am - 05:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">05:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 06:00 am - 06:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">06:00</span> <small>am</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 07:00 am - 07:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">07:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 08:00 am - 08:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">08:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 09:00 am - 09:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">09:00</span> <small>am</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 10:00 am - 10:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">10:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 11:00 am - 11:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">11:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 12:00 pm - 12:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">12:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 01:00 pm - 01:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">01:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 02:00 pm - 02:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">02:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 03:00 pm - 03:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">03:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" onclick="myFunction(event)" value="Within 04:00 pm - 04:50 pm"><span class="time"><span class="timeNumeric">04:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 05:00 pm - 05:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">05:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 06:00 pm - 06:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">06:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 07:00 pm - 07:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">07:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 08:00 pm - 08:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">08:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 09:00 pm - 09:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">09:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 10:00 pm - 10:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">10:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 11:00 pm - 11:50 pm" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">11:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 12:00 am - 12:50 am" onclick="myFunction(event)"><span class="time"><span class="timeNumeric">12:00</span> <small>am</small></span>
+    </li>
+    <br>
+    <input type="radio" name="slot" value="now(within 45 minutes)" onclick="myFunction(event)">Now(within 45 minutes)
+  </ul>
+
+   <!--billing section -->
+   <form method="post" action="/checkout">
+       <h3 align="center">Billing Section</h3>
+       <hr>
+       <h2>Billing name</h2>
+        <label for="fname"><i class="fa fa-user"></i> Full Name:</label>
+        <input type="text" id="fname" name="name" placeholder="Order receiver's name" name="name" required>
+        <label for="email"><i class="fa fa-envelope"></i> Email:</label>
+        <input type="text" id="todayemail" name="email" placeholder="Order receiver's email" required="@" onkeydown="todayvalidation()">
+        <p id="todaytext"></p>
+        <label><i class="fa fa-phone"></i> Phone:</label>
+        <input type="number" id="todayphone" name="phone" required placeholder="Order receiver's phone number" onkeydown="todayvalidate()">
+        <p id="todayalert"></p>
+        <hr>
+        <h2>Billing address</h2>
+        <label for="zip">Zip:</label>
+        <input type="number" id="zip" name="zip" placeholder="Delivery location's pincode" required>
+        <button type="button" onclick="check()" style="height: auto;width: auto;">Find My Location From Pincode Provided</button>
+        <label for="adr"><i class="fa fa-address-card-o"></i> Address:</label>
+        <input type="text" id="adr" name="address" placeholder="Delivery address" required>
+        <label for="city"><i class="fa fa-institution"></i> City:</label>
+        <input type="text" id="city" name="city" placeholder="Delivery city" readonly required>
+        <button type="button" onclick="manual()" style="height: auto;width: auto;">Enter city name manually</button>
+		<br>
+		<label id="newcitylabel" style="display: none;">Enter city name:</label>
+		<input type="text" name="city" id="newcity" style="display: none;">
+		<button id="newcityok" type="button" style="display: none;" onclick="correctcity()">Ok</button>
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" placeholder="Delivery state" readonly required>
+        <hr>
+        <h2>Billing date and time</h2>
+        <label>Date:</label>
+        <input type="text" id="currentdate" name="date" readonly>
+      	<label>Time:</label>
+        <input type="text" name="time" id="demo" readonly>
+        <hr>
+        <h2>Billing payment type</h2>
+        <label>Payment method: </label>
+        <input type="radio" name="pay" value="Cash On Delivery" required onclick="cashtoday()">Cash On Delivery</input><br>
+        <input type="radio" name="pay" value="Online Card Payment" required onclick="cardtoday()">Debit card</input><br>
+        <label id="tacceptedcards" style="display: none;">Accepted cards: 
+          <i class="fa fa-cc-visa fa-2x" style="color:navy;"></i>
+          <i class="fa fa-cc-rupay fa-2x" style="color: navy"></i>
+          <i class="fa fa-cc-mastercard fa-2x" style="color: navy;"></i>
+        </label>
+        <label id="tcardno" style="display: none;">Card number</label>
+        <input type="number" name="cardnumber" id="cardnumbertoday" placeholder="Debit card number" style="display: none;" required maxlength="16" onkeydown="todaycardvalidate()"><br>
+        <p id="todaycardmessage"></p>
+        <label id="tcardna" style="display: none;">Name on card</label>
+        <input type="text" name="cardholder" id="cardholdertoday" placeholder="Card holder's name" style="display: none;" required><br>
+         <label id="tcardex" style="display: none;">Card expiry date</label>
+        <input type="text" name="expiry" id="expirytoday" placeholder="expiry date(mm/yy)" style="display: none;" required="/"><br>
+        <label id="tcvv" style="display: none;">CVV</label>
+        <input type="number" name="cvv" id="cvvtoday" placeholder="CVV" style="display: none;" required maxlength="3" minlength="3">
+      <input type="submit" value="Confirm and checkout" class="btn" >
+  </form>
+</div>
+
+<div id="otherday" class="other_time" style="display: none;">
+      <font color="#fff">NOTE: For regular orders we can allow maximum postponement of 4 days.If it's a special order please <a href="/faq" style="text-decoration: underline;">Contact us</a></font>
+  <ul>
+  	<li>
+      <input type="radio" name="slot" value="Within 01:00 am - 01:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">01:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 02:00 am - 02:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">02:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 03:00 am - 03:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">03:00</span> <small>am</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 04:00 am - 04:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">04:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 05:00 am - 05:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">05:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 06:00 am - 06:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">06:00</span> <small>am</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 07:00 am - 07:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">07:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 08:00 am - 08:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">08:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 09:00 am - 09:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">09:00</span> <small>am</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 10:00 am - 10:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">10:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 11:00 am - 11:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">11:00</span> <small>am</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 12:00 pm - 12:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">12:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 01:00 pm - 01:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">01:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 02:00 pm - 02:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">02:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 03:00 pm - 03:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">03:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" onclick="myFunc(event)" value="Within 04:00 pm - 04:50 pm"><span class="time"><span class="timeNumeric">04:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 05:00 pm - 05:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">05:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 06:00 pm - 06:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">06:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 07:00 pm - 07:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">07:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 08:00 pm - 08:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">08:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 09:00 pm - 09:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">09:00</span> <small>pm</small></span>
+    </li>
+    <br>
+    <li>
+      <input type="radio" name="slot" value="Within 10:00 pm - 10:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">10:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 11:00 pm - 11:50 pm" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">11:00</span> <small>pm</small></span>
+    </li>
+    <li>
+      <input type="radio" name="slot" value="Within 12:00 am - 12:50 am" onclick="myFunc(event)"><span class="time"><span class="timeNumeric">12:00</span> <small>am</small></span>
+    </li>
+  </ul>
+  <!--billing section -->
+   <form method="post" action="/checkout">
+       <h3 align="center">Billing Address</h3>
+       <hr>
+       <h2>Billing name</h2>
+        <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+        <input type="text" id="fname" name="name" placeholder="Order receiver's name" required>
+        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+        <input type="text" id="email" name="email" placeholder="Order receiver's email" required="@" onkeydown="validation()">
+        <p id="text"></p>
+        <label><i class="fa fa-phone"></i> Phone</label>
+        <input type="number" id="phone" name="phone" required placeholder="Order receiver's phone number" onkeydown="validate()">
+        <p id="alert"></p>
+        <hr>
+        <h2>Billing adddress</h2>
+        <label for="zip">Zip:</label>
+        <input type="number" id="zip1" name="zip" placeholder="Delivery location's pincode" required>
+        <button type="button" onclick="check1()" style="height: auto;width: auto;">Find My Location From Pincode Provided</button>
+        <label for="adr"><i class="fa fa-address-card-o"></i> Address:</label>
+        <input type="text" id="adr" name="address" placeholder="Delivery address" required>
+        <label for="city"><i class="fa fa-institution"></i> City:</label>
+        <input type="text" id="city1" name="city" placeholder="Delivery city" readonly required>
+        <button type="button" onclick="manual1()" style="height: auto;width: auto;">Enter city name manually</button>
+        <br>
+        <label id="newcitylabel1" style="display: none;">Enter city name:</label>
+        <input type="text" name="city" id="newcity1" style="display: none;">
+        <button id="newcityok1" type="button" style="display: none;" onclick="correctcity1()">Ok</button>
+        <label for="state">State:</label>
+        <input type="text" id="state1" name="state" placeholder="Delivery state" readonly required>
+        <hr>
+        <h2>Billing date and time</h2>
+        <label>Ordering Date: </label>
+        <input type="text" name="order_date" readonly id="orderdate">
+      	<label>Delivery Date: <input id="date" type="date" min="2021-01-20" max="2021-02-05" required name="date">
+        </label>
+      	<label>Time</label>
+        <input type="text" name="time" id="final" readonly>
+        <hr>
+        <h2>Billing payment type</h2>
+        <label>Payment method: </label>
+        <input type="radio" name="pay" value="Cash On Delivery" required onclick="cash()">Cash On Delivery</input><br>
+        <input type="radio" name="pay" value="Online Card Payment" required onclick="card()">Debit card</input><br>
+        <label id="acceptedcards" style="display: none;">Accepted cards: 
+          <i class="fa fa-cc-visa fa-2x" style="color:navy;"></i>
+          <i class="fa fa-cc-rupay fa-2x" style="color: navy"></i>
+          <i class="fa fa-cc-mastercard fa-2x" style="color: navy;"></i>
+        </label>
+        <label id="cardno" style="display: none;">Card number</label>
+        <input type="number" name="cardnumber" id="cardnumber" placeholder="Debit card number" style="display: none;" required maxlength="16" onkeydown="cardvalidate()"><br>
+        <p id="cardmessage"></p>
+        <label id="cardna" style="display: none;">Name on card</label>
+        <input type="text" name="cardholder" id="cardholder" placeholder="Card holder's name" style="display: none;" required><br>
+         <label id="cardex" style="display: none;">Card expiry date</label>
+        <input type="text" name="expiry" id="expiry" placeholder="expiry date(mm/yy)" style="display: none;" required="/"><br>
+        <label id="cardcvv" style="display: none;">CVV</label>
+        <input type="number" name="cvv" id="cvv" placeholder="CVV" style="display: none;" required maxlength="3" minlength="3">
+      <input type="submit" value="Continue to checkout" class="btn" >
+  </form>
+</div>
+</body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+function fn(){
+	var div = document.getElementById("menu");
+	if(div.style.visibility==='hidden') {
+		div.style.visibility='visible';
+	}
+	else{
+		div.style.visibility='hidden';
+	}
+	window.onclick = function(event) {
+  if (event.target == div) {
+    div.style.visibility = "hidden";
+  }
+}
+}
+
+function cardtoday(){
+    document.getElementById("cardnumbertoday").style.display = "block";
+    document.getElementById("cardnumbertoday").required=true;
+    document.getElementById("cardholdertoday").style.display = "block";
+    document.getElementById("cardholdertoday").required=true;
+    document.getElementById("expirytoday").style.display = "block";
+    document.getElementById("expirytoday").required=true;
+    document.getElementById("cvvtoday").style.display="block";
+    document.getElementById("cvvtoday").required=true;
+    document.getElementById("tacceptedcards").style.display = "block";
+   document.getElementById("tcardna").style.display = "block";
+   document.getElementById("tcardno").style.display = "block";
+   document.getElementById("tcardex").style.display = "block";
+    document.getElementById("tcvv").style.display = "block";
+  }
+function cashtoday(){
+    document.getElementById("cardnumbertoday").style.display = "none";
+    document.getElementById("cardnumbertoday").required=false;
+    document.getElementById("cardholdertoday").style.display = "none";
+    document.getElementById("cardholdertoday").required=false;
+    document.getElementById("expirytoday").style.display = "none";
+    document.getElementById("expirytoday").required=false;
+    document.getElementById("cvvtoday").style.display="none";
+    document.getElementById("cvvtoday").required=false;
+     document.getElementById("tacceptedcards").style.display = "none";
+   document.getElementById("tcardna").style.display = "none";
+   document.getElementById("tcardno").style.display = "none";
+   document.getElementById("tcardex").style.display = "none";
+   document.getElementById("tcvv").style.display="none";
+}
+
+function card(){
+    document.getElementById("cardnumber").style.display = "block";
+    document.getElementById("cardnumber").required=true;
+    document.getElementById("cardholder").style.display = "block";
+    document.getElementById("cardholder").required=true;
+    document.getElementById("expiry").style.display = "block";
+    document.getElementById("expiry").required=true;
+    document.getElementById("cvv").style.display="block";
+    document.getElementById("cvv").required=true;
+    document.getElementById("acceptedcards").style.display = "block";
+   document.getElementById("cardna").style.display = "block";
+   document.getElementById("cardno").style.display = "block";
+   document.getElementById("cardex").style.display = "block";
+   document.getElementById("cardcvv").style.display="block";
+  }
+function cash(){
+    document.getElementById("cardnumber").style.display = "none";
+    document.getElementById("cardnumber").required=false;
+    document.getElementById("cardholder").style.display = "none";
+    document.getElementById("cardholder").required=false;
+    document.getElementById("expiry").style.display = "none";
+    document.getElementById("expiry").required=false;
+    document.getElementById("cvv").style.display="none";
+    document.getElementById("cvv").required=false;
+    document.getElementById("acceptedcards").style.display = "none";
+   document.getElementById("cardna").style.display = "none";
+   document.getElementById("cardno").style.display = "none";
+   document.getElementById("cardex").style.display = "none";
+   document.getElementById("cardcvv").style.display="none";
+}
+
+	//document.getElementByClass 
+	const pad = (num) => ("0"+num).slice(-2);
+const convertTime12to24 = (time12h) => { const [time, modifier] = time12h.split(' '); let [hours, minutes] = time.split(':'); if (hours === '12') hours = '00'; if (modifier.toUpperCase() === 'PM') hours = parseInt(hours, 10) + 12; return `${pad(hours)}:${pad(minutes)}`; }
+const padTime = (d) => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+
+$('.today').on("click",() => {
+  const now = padTime(new Date());
+  $('#output').text(` Filtering on ${now}`)
+  $('.custom_time li').filter((_,elm) => {
+    const $t = $(elm).find('.timeNumeric');
+    const text = convertTime12to24($t.text()+' '+$t.next().text());
+    return text<now;
+  }).hide();
+});
+
+document.getElementById("today").onclick = function(){
+	document.getElementById("todaydate").style.display="block";
+	document.getElementById("otherday").style.display="none";
+}
+document.getElementById("other").onclick = function(){
+	document.getElementById("todaydate").style.display="none";
+	document.getElementById("otherday").style.display="block";
+}
+
+function myFunction(event) {
+  document.getElementById("demo").value = event.target.value;
+}
+function myFunc(event) {
+  document.getElementById("final").value = event.target.value;
+}
+
+ function todayDate(){
+      var today = new Date(+new Date()+ 86400000);
+      var dd = today.getDate();
+      var mm = today.getMonth()+1;
+      var yyyy = today.getFullYear();
+      if(dd<10) {
+        dd = '0'+dd
+      }
+      if (mm<10) {
+        mm = '0'+mm
+      }
+      return yyyy+'-'+mm+'-'+dd;
+    }
+  function nextDate(){
+    var tomorrow = new Date(+new Date()+ 4*86400000);
+    var dd = tomorrow.getDate();
+    var mm = tomorrow.getMonth()+1;
+    var yyyy = tomorrow.getFullYear();
+    if(dd<10) {
+        dd = '0'+dd
+      }
+      if (mm<10) {
+        mm = '0'+mm
+      }
+      return yyyy+'-'+mm+'-'+dd;
+     }
+  /*function nextTime(){
+    var t = new Date().getHours()+1;
+    var d = t.getMinutes();
+    alert(""+t+':'+d);
+  }*/
+  $(document).ready(function(){
+    $('#date').attr('min',todayDate());
+    $('#date').attr('max',nextDate());
+  })
+
+  var currentdate = new Date();
+  document.getElementById("currentdate").value = currentdate;
+  document.getElementById("orderdate").value = currentdate;
+
+  function check(){
+		var pincode = document.getElementById("zip").value;
+		$.ajax({
+			type: "GET",
+			url: "https://api.postalpincode.in/pincode/"+pincode,
+			success: function(res){
+				var city = res[0].PostOffice[0].Block;
+				var state = res[0].PostOffice[0].State;
+				document.getElementById("city").value = city;
+				document.getElementById("state").value = state;
+			}
+		});
+	};
+
+ 	function manual(){
+		var a = document.getElementById("city").value.trim();
+	console.log(a);
+	if(a===""||a==="NA"){
+			document.getElementById("newcitylabel").style.display = "block";
+			document.getElementById("newcity").style.display = "block";
+			document.getElementById("newcityok").style.display = "block";
+		}
+		else{
+			alert("City name already detected");
+		}
+	}
+	function correctcity(){
+		document.getElementById("city").value = document.getElementById("newcity").value;
+		document.getElementById("newcity").style.display = "none";
+		document.getElementById("newcityok").style.display = "none";
+		document.getElementById("newcitylabel").style.display = "none";
+	}
+	
+  function check1(){
+		var pincode = document.getElementById("zip1").value;
+		$.ajax({
+			type: "GET",
+			url: "https://api.postalpincode.in/pincode/"+pincode,
+			success: function(res){
+				var city = res[0].PostOffice[0].Block;
+				var state = res[0].PostOffice[0].State;
+				document.getElementById("city1").value = city;
+				document.getElementById("state1").value = state;
+			}
+		});
+	};
+
+
+	function manual1(){
+		var a = document.getElementById("city1").value.trim();
+	console.log(a);
+	if(a===""||a==="NA"){
+			document.getElementById("newcitylabel1").style.display = "block";
+			document.getElementById("newcity1").style.display = "block";
+			document.getElementById("newcityok1").style.display = "block";
+		}
+		else{
+			alert("City name already detected");
+		}
+	}
+	function correctcity1(){
+		document.getElementById("city1").value = document.getElementById("newcity1").value;
+		document.getElementById("newcity1").style.display = "none";
+		document.getElementById("newcityok1").style.display = "none";
+		document.getElementById("newcitylabel1").style.display = "none";
+	}
+
+  function todayvalidation(){
+		var email = document.getElementById("todayemail").value;
+		var text = document.getElementById("todaytext");
+		var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+		if(email.match(pattern)){
+			text.innerHTML = "Email address in valid";
+			text.style.color = "#e33745";
+      text.style.backgroundColor = "#e33745";
+		}
+		else{
+			text.innerText = "Invalid email";
+			text.style.color = "red";
+      text.style.backgroundColor = "#fff";
+		}
+	}
+	function todayvalidate(){
+		var phone = document.getElementById("todayphone").value;
+		var alert = document.getElementById("todayalert");
+		var pattern = /^[7-9]\d{8}$/;
+
+		if(pattern.test(phone)){
+			alert.innerHTML = "Valid phone number";
+			alert.style.color="#e33745";
+      alert.style.backgroundColor = "#e33745";
+		}
+		else{
+			alert.innerText = "InValid phone number";
+			alert.style.color="red";
+      alert.style.backgroundColor = "#fff";
+		}
+	}
+
+  function validation(){
+		var email = document.getElementById("email").value;
+		var text = document.getElementById("text");
+		var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+		if(email.match(pattern)){
+			text.innerHTML = "Email address in valid";
+			text.style.color = "#e33745";
+      text.style.backgroundColor = "#e33745";
+		}
+		else{
+			text.innerText = "Invalid email";
+			text.style.color = "red";
+      text.style.backgroundColor = "#fff";
+		}
+	}
+	function validate(){
+		var phone = document.getElementById("phone").value;
+		var alert = document.getElementById("alert");
+		var pattern = /^[7-9]\d{8}$/;
+
+		if(pattern.test(phone)){
+			alert.innerHTML = "Valid phone number";
+			alert.style.color="#e33745";
+      alert.style.backgroundColor = "#e33745";
+		}
+		else{
+			alert.innerText = "InValid phone number";
+			alert.style.color="red";
+      alert.style.backgroundColor = "#fff";
+		}
+	}
+
+  function todaycardvalidate(){
+    var masterCardRegex=/^(?:5[1-5][0-9]{14})$/;
+    var visaCardRegex=/^(?:4[0-9]{12})(?:[0-9]{3})$/;
+    var inputnumber = document.getElementById("cardnumbertoday").value;
+    var message = document.getElementById("todaycardmessage");
+    if(masterCardRegex.test(inputnumber)||visaCardRegex.test(inputnumber)){
+      message.innerText = "ok";
+      message.style.color = "#e33745";
+      message.style.backgroundColor = "#e33745";
+    }
+    else{
+      message.innerText = "Either invalid card number or this card is not accepted"
+      message.style.color = "red";
+      message.style.backgroundColor = "#fff";
+    }
+  }
+
+  function cardvalidate(){
+    var masterCardRegex=/^(?:5[1-5][0-9]{14})$/;
+    var visaCardRegex=/^(?:4[0-9]{12})(?:[0-9]{3})$/;
+    var inputnumber = document.getElementById("cardnumber").value;
+    var message = document.getElementById("cardmessage");
+    if(masterCardRegex.test(inputnumber)||visaCardRegex.test(inputnumber)){
+      message.innerText = "ok";
+      message.style.color = "#e33745";
+      message.style.backgroundColor = "#e33745";
+    }
+    else{
+      message.innerText = "Either invalid card number or this card is not accepted"
+      message.style.color = "red";
+      message.style.backgroundColor = "#fff";
+    }
+  }
+</script>
+</html>

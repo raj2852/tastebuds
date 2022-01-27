@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dishes</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut-icon" type="x-image/icon" href="favicon.ico">
+    <link rel="icon" type="x-image/icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+	<div class="banner">
+		<button class="home" style="margin-left: 6px;margin-top: 10px;"><a href="/index"><font color="#001f3f">Home Page</font></a></button>
+    	<div id="account">
+    		<a onclick="fn()"><i class="fa fa-user-circle-o fa-2x"></i></a>
+   		</div>
+    	<div id="menu">
+	    	<ul>
+	    		<li><a href="/profile"><font color="blank">Profile</a></li>
+	    		<li><a href="/cart"><font color="blank">Cart</a></li>
+				<li><a href="/fav"><font color="blank">Favourites</a></li>
+	    		<li><a href="/logout" target="blank"><font color="blank">Logout!</font></a></li>
+	    	</ul>
+	    </div>
+		<p style="margin-left: 6px;margin-top: 10px;"><a href="/" style="color: #e33745;">Home</a> > Dishes</p>
+		<br>
+		
+	<h1><b>Have a look at what we have for you!</b>😋</h1>
+	<br>
+	<br>
+</div>
+
+ <!--flash message section-->
+            {{#if message}}
+              <div style="text-align: center" class="alert alert-{{message.type}}">
+                <strong>{{message.intro}}</strong> {{message.message}}
+              </div>
+            {{/if}}
+
+
+<div class="float">
+		<a href="/cart">
+<i class="fa fa-shopping-cart fa-2x my-float"></i>
+<p id="count" style="color: #fff">{{session.cart.totalQty}}</p>
+</a>
+</div>
+	<section id="content">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="sort">
+        <font color="#fff" size="6">Sort according to your food habit</font>
+        <br>
+        <a onclick="sort()" data-filter="veg"><button class="sortbutton" data-filter="veg">Veg</button></a>
+        <a data-filter="non-veg"><button class="sortbutton" data-filter="non-veg">Non-Veg</button></a>
+		<br>
+		<a data-filter="all" style="color: #fff; text-decoration: none; background-color: transparent; box-shadow:  5px 5px 8px #9f2730, -5px -5px 8px #f53b4b;" class="sortbutton">Remove filter &times;</a>
+		<br>
+		<br>
+		<font color="#fff" size="6">Sort according to your pizza size</font>
+        <br>
+        <a onclick="sort()" data-filter="small"><button class="sortbutton" data-filter="small">Small</button></a>
+        <a data-filter="medium"><button class="sortbutton" data-filter="medium">Medium</button></a>
+		<a data-filter="large"><button class="sortbutton" data-filter="large">Large</button></a>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12">
+        {{# each products}}
+		<div class="container">
+            {{# each this}}
+	        <div class="col-lg-6 col-md-12 col-sm-12">
+	            <div class="item {{this.category}}">
+	            	<div class="ima">
+		            <img src="{{this.coverImagePath}}"><br>
+		            </div>	
+		            <div class="text">
+		            <p>{{this.title}}</p>
+		            <font size="4">
+		            <strike>@Rs.{{this.strike}}{{this.quantity}}</strike> || <i>SAVE Rs.{{this.saved}}</i></font>
+		            <br>
+		            <font color="#f22121" size="4px"><strong>@Rs.{{this.price}}({{this.quantity}})</strong></font>
+					<button id="add"><a onclick="display()" href="/add-to-cart/{{this._id}}">ADD</a></button>
+					<img class="veg" src="veg.png" style="display:{{this.veg}};" height="10px" width="10px">
+					<img class="nonveg" src="non-veg.png" style="display: {{this.nonveg}};" height="10px" width="10px">
+					<a href="/fav/{{this._id}}" class="like" id="like">
+					<div class="surround">
+    						<svg class="heart" viewBox="0 0 32 29.6">
+  							<path id="heart" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+							</svg>
+					</div>
+					</a>
+		            </div>
+	            </div>
+	        </div> 
+            {{/each}}
+        </div>
+        {{/each}}   
+    </div>
+	</section>
+	<script type="text/javascript" src="sort.js"></script>
+	<script type="text/javascript" src="counter.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+	function fn(){
+	var div = document.getElementById("menu");
+	if(div.style.visibility==='hidden') {
+		div.style.visibility='visible';
+	}
+	else{
+		div.style.visibility='hidden';
+	}
+	window.onclick = function(event) {
+  if (event.target == div) {
+    div.style.visibility = "hidden";
+  }
+}
+}
+	/*$('#like').on("click", function() {
+    $('.heart').css({ fill: "red" });
+});*/
+	
+	</script>
+</body>
+</html>

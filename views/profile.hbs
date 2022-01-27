@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Profile</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<link rel="shortcut-icon" type="x-image/icon" href="favicon.ico">
+    <link rel="icon" type="x-image/icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="profile.css">
+</head>
+
+<body>
+	<div class="main">
+		<div class="banner">
+			<a href="/index"><button type="post"><font color="#001f3f">Home Page</font></a></button>
+			<div id="account">
+    		<a onclick="fn()"><i class="fa fa-user-circle-o fa-2x"></i></a>
+   		</div>
+    	<div id="menu">
+	    	<ul>
+	    		<li><a href="/profile"><font color="blank">Profile</a></li>
+	    		<li><a href="/cart"><font color="blank">Cart</a></li>
+				<li><a href="/fav"><font color="blank">Favourites</a></li>
+	    		<li><a href="/logout" target="blank"><font color="blank">Logout!</font></a></li>
+	    	</ul>
+	    </div>
+<p><a href="/index">Home</a> > <a href="/main">Dishes</a> > Profile</p>
+		</div>
+ <!--flash message section-->
+            {{#if message}}
+              <div style="text-align: center" class="alert alert-{{message.type}}">
+                <strong>{{message.intro}}</strong> {{message.message}}
+              </div>
+            {{/if}}
+
+<div class="profile">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+	<div class="card">
+	<form>
+		<h2 align="center" style="color: #fff;">Your Tastebuds Profile</h2>
+		<br>
+		<p class="form">First name: {{first_name}}</p>
+		<p class="form">Last name: {{last_name}}</p>
+		<p class="form">Gender: {{gender}}</p>
+		<p class="form">Phone number: {{phone}}</p>
+		<p class="form">Email: {{email}}</p>
+		<center><a onclick="show()"><i class="fa fa-edit" id="edit">Edit personal details</i></a> || <a onclick="updatepswd()" style="color: aliceblue;">Change password</a></center>
+	</form>
+</div>
+</div>
+</div>
+<center>
+	<br>
+	<br>
+	<div id="form" style="display: none;">
+		<h3>Edit your profile details</h3>
+		<h6>*Email field can't be changed</h6>
+		<form action="/update" method="Post">
+			<label>First name: </label>
+			<input type="text" name="first_name" value="{{first_name}}" required>
+			<br>
+			<label>Last_name: </label>
+			<input type="text" name="last_name" value="{{last_name}}" required>
+			<br>
+			<label>Email: </label>
+			<input type="text" name="email" value="{{email}}" required readonly>
+			<br>
+			<label>Phone number: </label>
+			<input type="text" name="phone" id="phone" value="{{phone}}" required onkeydown="validate()">
+			<p id="alert"></p>
+			<br>
+			<input type="submit" value="Update">		
+		</form>
+	</div>
+	<div id="pswd" style="display: none;">
+		<h3>Change your account password</h3>
+		<form method="post" action="/changepassword">
+			<label>New-Password: </label><input id="passw" type="password" name="password" placeholder="Type a new password" required>
+			<br>
+			<label>Confirm new password: </label><input id="passwr" type="password" name="cpassword" placeholder="Retype the new password" required> 
+			<br>
+			<input type="checkbox" onclick="myFunction()">Show Passwords
+			<br>
+			<input type="submit" value="Change">
+		</form>
+	</div>
+</center>
+
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e33745" fill-opacity="1" d="M0,128L13.3,122.7C26.7,117,53,107,80,122.7C106.7,139,133,181,160,186.7C186.7,192,213,160,240,144C266.7,128,293,128,320,154.7C346.7,181,373,235,400,213.3C426.7,192,453,96,480,96C506.7,96,533,192,560,197.3C586.7,203,613,117,640,122.7C666.7,128,693,224,720,245.3C746.7,267,773,213,800,186.7C826.7,160,853,160,880,170.7C906.7,181,933,203,960,213.3C986.7,224,1013,224,1040,213.3C1066.7,203,1093,181,1120,154.7C1146.7,128,1173,96,1200,90.7C1226.7,85,1253,107,1280,149.3C1306.7,192,1333,256,1360,282.7C1386.7,309,1413,299,1427,293.3L1440,288L1440,0L1426.7,0C1413.3,0,1387,0,1360,0C1333.3,0,1307,0,1280,0C1253.3,0,1227,0,1200,0C1173.3,0,1147,0,1120,0C1093.3,0,1067,0,1040,0C1013.3,0,987,0,960,0C933.3,0,907,0,880,0C853.3,0,827,0,800,0C773.3,0,747,0,720,0C693.3,0,667,0,640,0C613.3,0,587,0,560,0C533.3,0,507,0,480,0C453.3,0,427,0,400,0C373.3,0,347,0,320,0C293.3,0,267,0,240,0C213.3,0,187,0,160,0C133.3,0,107,0,80,0C53.3,0,27,0,13,0L0,0Z"></path></svg>
+<!--<script type="text/javascript" src="vanilla-tilt.js"></script>-->
+<script type="text/javascript">
+function myFunction() {
+            var x = document.getElementById("passw");
+            var y = document.getElementById("passwr");
+            if (x.type === "password" && y.type === "password") {
+               x.type = "text";
+               y.type = "text";
+            } else {
+               x.type = "password";
+               y.type = "password";
+            }
+         }
+
+	function show(){
+		var div = document.getElementById("form");
+	if(div.style.display==='none') {
+		div.style.display='block';
+	}
+	else{
+		div.style.display='none';
+	}
+	}
+
+	function updatepswd(){
+		var div = document.getElementById("pswd");
+		if(div.style.display==='none') {
+		div.style.display='block';
+	}
+	else{
+		div.style.display='none';
+	}
+	}
+	function fn(){
+	var div = document.getElementById("menu");
+	if(div.style.visibility==='hidden') {
+		div.style.visibility='visible';
+	}
+	else{
+		div.style.visibility='hidden';
+	}
+	window.onclick = function(event) {
+  if (event.target == div) {
+    div.style.visibility = "hidden";
+  }
+}
+}
+	VanillaTilt.init(document.querySelector(".card"), {
+		max: 25,
+		speed: 400,
+		glare: true,
+		"max-glare": 1,
+	});
+
+	function validate(){
+		var phone = document.getElementById("phone").value;
+		var alert = document.getElementById("alert");
+		var pattern = /^[7-9]\d{8}$/;
+
+		if(pattern.test(phone)){
+			alert.innerHTML = "Valid phone number";
+			alert.style.color="#e33745";
+			alert.style.backgroundColor = "#e33745";
+		}
+		else{
+			alert.innerText = "InValid phone number";
+			alert.style.color="red";
+			alert.style.backgroundColor = "#fff";
+		}
+	}
+</script>
+</body>
+</html>

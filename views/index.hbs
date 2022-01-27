@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taste Buds - order food online</title>
+    <!--bootstrap css and js-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!--Importing font-->
+    <link href="https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap" rel="stylesheet">
+    <!--responsive screen adjustment-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut-icon" type="x-image/icon" href="favicon.ico">
+    <link rel="icon" type="x-image/icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="modal.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <!--defining modal content-->
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <h4>Welcome to Tastebuds! How are we unique? Here it is: <span class="close">&times;</span></h4>
+      
+      <ul>
+        <li>Customizable delivery date and time.</li>
+        <li>Customizable orders for special occasions</li>
+        <li>Social cause - "CONTRIBUTION",to know more visit the FAQ section.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!--main page content-->
+  <div class="main">
+    <br>
+
+  <!--navbar section-->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top" style="background-color: #e33745;">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/main" target="_blank">Dishes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/signup" target="_blank">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/faq" target="_blank">FAQ</a>
+      </li>        
+    </ul>
+  </nav>
+
+  <!--logo and intro section-->
+<section id="content">            
+  <div class="container"> 
+
+    <div class="col-lg-6 col-md-12 col-sm-12">   
+    <div class="logo">
+      <img src="logo.jpg" height="100%" width="100%">
+    </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="text">
+        <font style="font-family: 'Leckerli One', cursive; color:#fff;font-size: 75px;">Tastebuds</font>
+        <br>
+        <br>
+        <p align="justified">Tired of cooking daily food at home? Craving for some delicious mouth-watering dishes? Time is not a factor but just a number. Order food online on Taste buds and we will responsibly reboot your taste grid. Now arranging parties is no problem, as we are also taking orders for your occassion. Customize your own food, set your suitable time and see how we flex according to your wish.</p>
+        <br>
+        <br>
+        <br>
+        <a href="/signup"><button id="btn" type="post"><font color="#da2a2a"><b>Join Me In</font></button></a>
+      </div>
+    </div>
+  </div>
+</section>  
+</div>
+
+<!--wavy clip path-->
+<div id="main">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e33745" fill-opacity="1" d="M0,128L13.3,122.7C26.7,117,53,107,80,122.7C106.7,139,133,181,160,186.7C186.7,192,213,160,240,144C266.7,128,293,128,320,154.7C346.7,181,373,235,400,213.3C426.7,192,453,96,480,96C506.7,96,533,192,560,197.3C586.7,203,613,117,640,122.7C666.7,128,693,224,720,245.3C746.7,267,773,213,800,186.7C826.7,160,853,160,880,170.7C906.7,181,933,203,960,213.3C986.7,224,1013,224,1040,213.3C1066.7,203,1093,181,1120,154.7C1146.7,128,1173,96,1200,90.7C1226.7,85,1253,107,1280,149.3C1306.7,192,1333,256,1360,282.7C1386.7,309,1413,299,1427,293.3L1440,288L1440,0L1426.7,0C1413.3,0,1387,0,1360,0C1333.3,0,1307,0,1280,0C1253.3,0,1227,0,1200,0C1173.3,0,1147,0,1120,0C1093.3,0,1067,0,1040,0C1013.3,0,987,0,960,0C933.3,0,907,0,880,0C853.3,0,827,0,800,0C773.3,0,747,0,720,0C693.3,0,667,0,640,0C613.3,0,587,0,560,0C533.3,0,507,0,480,0C453.3,0,427,0,400,0C373.3,0,347,0,320,0C293.3,0,267,0,240,0C213.3,0,187,0,160,0C133.3,0,107,0,80,0C53.3,0,27,0,13,0L0,0Z"></path></svg>
+  </div>
+  <br>
+
+<!--js for modal content-->
+<script type="text/javascript" src="modal.js"></script>
+</body>
+</html>
