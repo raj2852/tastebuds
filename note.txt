@@ -1,9 +1,0 @@
-/*
-MONGO_URI="mongodb+srv://RajdipMondal-RMD:jswtherokugithub@tastebuds.qxqjx.mongodb.net/tastebuds?retryWrites=true&w=majority"
-for remote mongodb database
-*/
-
-1. Create an admin panel locally.
-
-mongodb://localhost:27017/tastebuds
-
