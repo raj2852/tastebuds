@@ -33,7 +33,7 @@ app.use(session({
   store: new MongoDBStore({uri: process.env.MONGO_URI,
 collection: 'mysession'}),
   cookie: {maxAge: null,
-  secure: true,
+  secure: false,
 }
 }));
 app.use(function(req, res, next) {
@@ -245,7 +245,7 @@ app.post("/forgot-password", async(req,res) => {
                     html: `<body>
                     <p>Dear ${name},</p>
                     <br>
-                    <p>We received a request to reset your account's password at <b>${h} : ${m}.Click the Reset password link to get access for reseting your password.</b></p>
+                    <p>We received a request to reset your account's password <b>just now</b>.Click the Reset password link to get access for reseting your password.</b></p>
                     <br>
                     <a href="https://tastebuds-in.herokuapp.com/reset-password/${registeredemail._id.toString()}/${resettoken}">Reset password</a>
                     <br>
@@ -339,7 +339,7 @@ app.post('/reset-password/:id/:resettoken', async(req,res) => {
       subject: "Password changed",
       html: `<p>Dear ${name},</p>
       <br>
-      <p>Your password has been changed by requesting for password reset at <b>${h}:${m}</b>. If not done by you, click <a href="https://tastebuds-in.herokuapp.com/help/${validuser._id.toString()}">HELP</a>.</p>`
+      <p>Your password has been changed by requesting for password reset <b>just now</b>. If not done by you, click <a href="https://tastebuds-in.herokuapp.com/help/${validuser._id.toString()}">HELP</a>.</p>`
     }
     await mailer.send(pswdrstmail)
     res.status(200).redirect('/login')
@@ -456,7 +456,7 @@ app.post("/update", async(req,res) => {
     subject: "Profile updated",
     html: `<p>Dear ${name},</p>
     <br>
-    <p>Your profile details were updated at <b>${h} : ${m}</b>. Your new profile details is mentioned below.</p>
+    <p>Your profile details were updated <b>just now</b>. Your new profile details is mentioned below.</p>
     <br>
     ${newuser}
     <br>
@@ -513,7 +513,7 @@ app.post("/changepassword", async(req,res) => {
       subject: "Password changed",
       html: `<p>Dear ${name},</p>
       <br>
-      <p>Your password has been changed by logging into your account at <b>${h}:${m}</b>. If not done by you, click <a href="https://tastebuds-in.herokuapp.com/help/${user._id.toString()}">HELP</a>.</p>
+      <p>Your password has been changed by logging into your account <b>just now</b>. If not done by you, click <a href="https://tastebuds-in.herokuapp.com/help/${user._id.toString()}">HELP</a>.</p>
       `
     }
     await mailer.send(pswdchngmail)
@@ -638,7 +638,7 @@ app.post("/checkout",auth, async(req,res) => {
         name: req.body.name,
         email: req.body.email,
         order_date: req.body.order_date,
-        date: req.body.date,
+        delivery_date: req.body.date,
         time: req.body.time,
         payment: req.body.pay,
         cardholder: req.body.cardholder,

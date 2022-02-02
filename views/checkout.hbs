@@ -142,24 +142,25 @@
         <p id="todayalert"></p>
         <hr>
         <h2>Billing address</h2>
+        <p>*IMPORTANT: After entering your location's pincode click the <b>"Find My Location From Pincode Provided"</b> button below it to automatically detect your location <b>city</b> and <b>state.</b>*</p>
         <label for="zip">Zip:</label>
         <input type="number" id="zip" name="zip" placeholder="Delivery location's pincode" required>
         <button type="button" onclick="check()" style="height: auto;width: auto;">Find My Location From Pincode Provided</button>
         <label for="adr"><i class="fa fa-address-card-o"></i> Address:</label>
         <input type="text" id="adr" name="address" placeholder="Delivery address" required>
         <label for="city"><i class="fa fa-institution"></i> City:</label>
-        <input type="text" id="city" name="city" placeholder="Delivery city" readonly required>
-        <button type="button" onclick="manual()" style="height: auto;width: auto;">Enter city name manually</button>
+        <input type="text" id="city" name="city" placeholder="Delivery city (Click Find My Location button to detect automatically)" readonly required>
+        <button type="button" id="manualcity" onclick="manual()" style="height: auto;width: auto;display: none">Enter city name manually</button>
 		<br>
 		<label id="newcitylabel" style="display: none;">Enter city name:</label>
 		<input type="text" name="city" id="newcity" style="display: none;">
 		<button id="newcityok" type="button" style="display: none;" onclick="correctcity()">Ok</button>
         <label for="state">State:</label>
-        <input type="text" id="state" name="state" placeholder="Delivery state" readonly required>
+        <input type="text" id="state" name="state" placeholder="Delivery state (Click Find My Location button to detect automatically)" readonly required>
         <hr>
         <h2>Billing date and time</h2>
         <label>Date:</label>
-        <input type="text" id="currentdate" name="date" readonly>
+        <input type="text" id="currentdate" name="order_date" readonly>
       	<label>Time:</label>
         <input type="text" name="time" id="demo" readonly>
         <hr>
@@ -181,7 +182,8 @@
         <input type="text" name="expiry" id="expirytoday" placeholder="expiry date(mm/yy)" style="display: none;" required="/"><br>
         <label id="tcvv" style="display: none;">CVV</label>
         <input type="number" name="cvv" id="cvvtoday" placeholder="CVV" style="display: none;" required maxlength="3" minlength="3">
-      <input type="submit" value="Confirm and checkout" class="btn" >
+        <button id="checkbtn" type="button" onclick="confirm()" style="display: block;width: auto">Confirm Details</button>
+      <input type="submit" id="final" value="Confirm and checkout" class="btn" style="display: none;">
   </form>
 </div>
 
@@ -283,6 +285,7 @@
         <p id="alert"></p>
         <hr>
         <h2>Billing adddress</h2>
+        <p>*IMPORTANT: After entering your location's pincode click the <b>"Find My Location From Pincode Provided"</b> button below it to automatically detect your location <b>city</b> and <b>state</b>.*</p>
         <label for="zip">Zip:</label>
         <input type="number" id="zip1" name="zip" placeholder="Delivery location's pincode" required>
         <button type="button" onclick="check1()" style="height: auto;width: auto;">Find My Location From Pincode Provided</button>
@@ -290,7 +293,7 @@
         <input type="text" id="adr" name="address" placeholder="Delivery address" required>
         <label for="city"><i class="fa fa-institution"></i> City:</label>
         <input type="text" id="city1" name="city" placeholder="Delivery city" readonly required>
-        <button type="button" onclick="manual1()" style="height: auto;width: auto;">Enter city name manually</button>
+        <button type="button" id="manualcity1" onclick="manual1()" style="height: auto;width: auto;display: none;">Enter city name manually</button>
         <br>
         <label id="newcitylabel1" style="display: none;">Enter city name:</label>
         <input type="text" name="city" id="newcity1" style="display: none;">
@@ -304,7 +307,7 @@
       	<label>Delivery Date: <input id="date" type="date" min="2021-01-20" max="2021-02-05" required name="date">
         </label>
       	<label>Time</label>
-        <input type="text" name="time" id="final" readonly>
+        <input type="text" name="time" id="finaltime" readonly>
         <hr>
         <h2>Billing payment type</h2>
         <label>Payment method: </label>
@@ -324,7 +327,8 @@
         <input type="text" name="expiry" id="expiry" placeholder="expiry date(mm/yy)" style="display: none;" required="/"><br>
         <label id="cardcvv" style="display: none;">CVV</label>
         <input type="number" name="cvv" id="cvv" placeholder="CVV" style="display: none;" required maxlength="3" minlength="3">
-      <input type="submit" value="Continue to checkout" class="btn" >
+        <button id="checkbtn1" type="button" onclick="confirm1()" style="display: block;width: auto">Confirm Details</button>
+      <input type="submit" id="final1" value="Continue to checkout" class="btn" style="display: none;">
   </form>
 </div>
 </body>
@@ -435,7 +439,7 @@ function myFunction(event) {
   document.getElementById("demo").value = event.target.value;
 }
 function myFunc(event) {
-  document.getElementById("final").value = event.target.value;
+  document.getElementById("finaltime").value = event.target.value;
 }
 
  function todayDate(){
@@ -487,6 +491,7 @@ function myFunc(event) {
 				var city = res[0].PostOffice[0].Block;
 				var state = res[0].PostOffice[0].State;
 				document.getElementById("city").value = city;
+        document.getElementById("manualcity").style.display="block";
 				document.getElementById("state").value = state;
 			}
 		});
@@ -510,6 +515,18 @@ function myFunc(event) {
 		document.getElementById("newcityok").style.display = "none";
 		document.getElementById("newcitylabel").style.display = "none";
 	}
+  function confirm(){
+    if(document.getElementById("city").value===""||document.getElementById("state").value===""){
+    alert("Couldn't detect city and state, click the Find My Location button after entering PINcode")
+  }
+  else if(document.getElementById("demo").value===""){
+    alert("Please select a preferable delivery time");
+  }
+  else{
+    document.getElementById("checkbtn").style.display="none";
+    document.getElementById("final").style.display="block";
+  }
+  }
 	
   function check1(){
 		var pincode = document.getElementById("zip1").value;
@@ -520,6 +537,7 @@ function myFunc(event) {
 				var city = res[0].PostOffice[0].Block;
 				var state = res[0].PostOffice[0].State;
 				document.getElementById("city1").value = city;
+        document.getElementById("manualcity1").style.display="block";
 				document.getElementById("state1").value = state;
 			}
 		});
@@ -544,6 +562,23 @@ function myFunc(event) {
 		document.getElementById("newcityok1").style.display = "none";
 		document.getElementById("newcitylabel1").style.display = "none";
 	}
+  function confirm1(){
+    var a = document.getElementById("city1").value;
+    console.log(a);
+    var b = document.getElementById("state1").value;
+    console.log(b);
+    if(document.getElementById("city1").value===""||document.getElementById("state1").value===""){
+    alert("Couldn't detect city and state, click the Find My Location button after entering PINcode")
+  }
+  else if(document.getElementById("finaltime").value===""){
+    alert("Please choose a preferable delivery time")
+  }
+  else{
+    document.getElementById("checkbtn1").style.display="none";
+    document.getElementById("final1").style.display="block";
+  }
+  }
+
 
   function todayvalidation(){
 		var email = document.getElementById("todayemail").value;
