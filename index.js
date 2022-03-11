@@ -33,7 +33,7 @@ app.use(session({
   store: new MongoDBStore({uri: process.env.MONGO_URI,
 collection: 'mysession'}),
   cookie: {maxAge: null,
-  secure: false,
+  secure: true,
 }
 }));
 app.use(function(req, res, next) {
@@ -692,6 +692,76 @@ app.get("/submit",auth,(req,res) => {
 //logout page get request
 app.get("/logout", auth, async(req,res) => {
   try{
+    const token = req.cookies.token;
+    const verifyUser = jwt.verify(token, process.env.SECRET_KEY);
+    const _id = verifyUser._id;
+    const user = await User.findOne({_id:verifyUser._id})
+    const ordermail = user.email;
+    const ordername = user.first_name;
+    var cart = new Cart(req.session.cart);
+    var fav = new Fav(req.session.fav);
+    if(req.session.cart){
+      function replace(key,value){
+        if(key=="totalQty") return undefined;
+        if(key=="totalPrice") return undefined;
+        if(key=="add") return undefined;
+        if(key=="moveItem") return undefined;
+        if(key=="generateArray") return undefined;
+        if(key=="_id") return undefined;
+        if(key=="img") return undefined;
+        if(key=="qty") return undefined;
+        if(key=="veg") return undefined;
+        if(key=="nonveg") return undefined;
+        if(key=="__v") return undefined;
+        else return value;
+      }
+      let finalcart = JSON.stringify(cart,replace);
+      //console.log(finalcart);
+      const remainingcart = {
+        to: ordermail,
+        from: {name: "Tastebuds-in", email:"service.rajprojects@gmail.com"},
+        subject: "Items left in your cart",
+        html: `<p>Hello ${ordername},</p>
+        <br>
+        <p>These dishes: </p>
+        <br>
+        <pre>${finalcart}</pre>
+        <br>
+        <p>you left pending on your cart are waiting for your call!!. Hope to see you soon</p>`
+      }
+      await mailer.send(remainingcart);
+    }
+    if(req.session.fav){
+      function replace(key,value){
+        if(key=="totalQty") return undefined;
+        if(key=="totalPrice") return undefined;
+        if(key=="add") return undefined;
+        if(key=="moveItem") return undefined;
+        if(key=="generateArray") return undefined;
+        if(key=="_id") return undefined;
+        if(key=="img") return undefined;
+        if(key=="qty") return undefined;
+        if(key=="veg") return undefined;
+        if(key=="nonveg") return undefined;
+        if(key=="__v") return undefined;
+        else return value;
+      }
+      let finalfav = JSON.stringify(fav,replace);
+      //console.log(finalfav);
+      const favadded = {
+        to: ordermail,
+        from: {name: "Tastebuds-in", email:"service.rajprojects@gmail.com"},
+        subject: "Your favourites from Tastebuds",
+        html: `<p>Hello ${ordername},</p>
+        <br>
+        <p>You added these dishes to your favourites: </p>
+        <br>
+        <pre>${finalfav}</pre>
+        <br>
+        <p>We wish to serve them on your next order. Hope to see you soon.</p>`
+      }
+      await mailer.send(favadded);
+    }
     req.user.tokens = req.user.tokens.filter((currEle) => {
       return currEle != req.token
     })
