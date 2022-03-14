@@ -246,6 +246,7 @@ app.post("/forgot-password", async(req,res) => {
                     <p>Dear ${name},</p>
                     <br>
                     <p>We received a request to reset your account's password <b>just now</b>.Click the Reset password link to get access for reseting your password.</b></p>
+                    <Strong>This link is valid for only 15 minutes</Strong>
                     <br>
                     <a href="https://tastebuds-in.herokuapp.com/reset-password/${registeredemail._id.toString()}/${resettoken}">Reset password</a>
                     <br>
@@ -270,6 +271,85 @@ app.get('/help/:id',async(req,res) => {
   res.status(200).redirect('/signup');
 })
 
+//Request for order cancellation
+app.get('/cancel-order/:id/:cancelordertoken', async(req,res) => {
+  try{
+  const orderid = req.params.id;
+  const cancelordertoken = req.params.cancelordertoken;
+  const idfound = await Order.findOne({_id: orderid});
+  if(idfound===null){
+    req.session.message = {
+      type: 'danger',
+      intro: 'Order not found',
+      message: `We could not find any order with id : ${id}`
+    }
+    res.status(400).redirect('/error');
+  }
+  else{
+    const CANCEL_SECRET = process.env.CANCEL_SECRET;
+    const cancel = CANCEL_SECRET + idfound.confirmation;
+    const payload = jwt.verify( cancelordertoken,cancel );
+    res.status(200).render('cancel-order',{order_id:orderid});
+  }
+  }
+  catch(err){
+    req.session.message = {
+      type: 'danger',
+      intro: 'Invalid link',
+      message: ''
+    }
+    res.status(400).redirect('/error');
+  }
+})
+
+app.post('/cancel-order/:id/:cancelordertoken',async(req,res) => {
+  const id = req.params.id;
+  //console.log(id);
+  const idfound = await Order.findOne({_id: id}
+  );
+  //console.log(idfound)
+    if(idfound===null){
+      req.session.message = {
+        type: 'danger',
+        intro: 'Order not found',
+        message: `We could not find any order with id : ${id}`
+      }
+      res.status(400).redirect('/error');
+    }
+    else if(idfound!==null){
+    req.session.message = {
+    type: 'success',
+    intro: 'Order cancelled',
+    message: 'Order amount will be refunded soon to your original mode of payment'
+  }
+  await Order.findByIdAndUpdate(id,{confirmation: "do_not_deliver"});
+  const userid = idfound.user;
+  const validuser = await User.findOne({_id:userid});
+  const useremail = validuser.email;
+  const username = validuser.first_name;
+  const cancelconfirmation = {
+    to: useremail,
+    from : {name: "Tastebuds-in", email:"service.rajprojects@gmail.com"},
+    subject: "Order cancelled",
+    html: `<p>Dear ${username},</p>
+    <br>
+    <p>Your last order with order-id : <strong>${id}</strong> with us has being cancelled by you. If you think this was a mistake,kindly consider reordering the items again.</p>
+    <br>
+    <p>We look forward to serving your ordered dishes again</p>`
+  }
+  await mailer.send(cancelconfirmation);
+  res.status(200).redirect('/main');
+}
+else{
+  req.session.message = {
+    type: 'danger',
+    intro: 'This order cannot be cancelled anymore.',
+    message: '5 minutes of cancellation time already passed'
+  }
+  res.status(400).redirect('/login')
+}
+})
+
 //Request for reset-password page
 app.get('/reset-password/:id/:resettoken', async(req,res) => {
   try{
@@ -282,7 +362,7 @@ app.get('/reset-password/:id/:resettoken', async(req,res) => {
       intro: "Not a valid reset link!",
       message: ""
     }
-    res.redirect('error')
+    res.status(400).redirect('error');
   }
   else{
     const RESET_SECRET = process.env.RESET_SECRET;
@@ -293,7 +373,7 @@ app.get('/reset-password/:id/:resettoken', async(req,res) => {
   }
 }
 catch(err){
-  res.redirect('forgot-password');
+  res.status(400).redirect('forgot-password');
 }
 });
 
@@ -628,6 +708,7 @@ app.post("/checkout",auth, async(req,res) => {
         message: 'Please match the order id sent via email with the one mentioned in the package to be delivered'
       }
       var order = new Order({
+        confirmation: "deliver",
         user: _id,
         cart: cart,
         phone: req.body.phone,
@@ -648,8 +729,9 @@ app.post("/checkout",auth, async(req,res) => {
     });
     const neworder = await order.save();
     const orderid = neworder._id.toString();
+    const status = neworder.confirmation;
     function replace(key,value){
-      if(key=="_id") return undefined;
+      /*if(key=="_id") return undefined;
       else if(key=="user") return undefined;
       else if(key=="img") return undefined;
       else if(key=="veg") return undefined;
@@ -658,10 +740,28 @@ app.post("/checkout",auth, async(req,res) => {
       else if(key=="cardnumber") return undefined;
       else if(key=="expiry") return undefined;
       else if(key=="__v") return undefined;
-      else if(key=="cvv") return undefined;
+      else if(key=="cvv") return undefined;*/
+      if(key=="add") return undefined;
+        if(key=="moveItem") return undefined;
+        if(key=="generateArray") return undefined;
+        if(key=="_id") return undefined;
+        if(key=="img") return undefined;
+        if(key=="veg") return undefined;
+        if(key=="nonveg") return undefined;
+        if(key=="__v") return undefined;
       else return value;
     }
-    let html = JSON.stringify(neworder, replace);
+    let html = JSON.stringify(cart, replace);
+    //token for order cancellation
+    const CANCEL_SECRET = process.env.CANCEL_SECRET;
+    const cancel = CANCEL_SECRET+status;
+    const payload = {
+      id: orderid,
+      cus_mail: ordermail, 
+    }
+    const cancelordertoken = jwt.sign(payload,cancel,{expiresIn: '5m'})
+    const cancelorderlink = `http://localhost:${port}/cancel-order/${orderid}/${cancelordertoken}`;
+    console.log(cancelorderlink);
     const ordermailer = {
       to: ordermail,
       from: {name: "Tastebuds-in", email:"service.rajprojects@gmail.com"},
@@ -670,10 +770,27 @@ app.post("/checkout",auth, async(req,res) => {
       <br>
       <p>Thank you for ordering with Tastebuds!.We have received your order and the processing has started.Your order id is: <b>${orderid}</b>. Below given is your order details.</p>
       <br>
-      <pre>${html}</pre>
+      <p><strong>Order Id</strong> : <p>${orderid}</p></p>
+      <p><strong>Items ordered</strong> : <pre>${html}</pre></p>
+      <p><strong>Customer name</strong> : <p>${neworder.name}</p></p>
+      <p><strong>Customer email</strong> : <p>${neworder.email}</p></p>
+      <p><strong>Customer phone</strong> : <p>${neworder.phone}</p></p>
+      <p><strong>Customer location PIN</strong> : <p>${neworder.zip}</p></p>
+      <p><strong>Customer address</strong> : <p>${neworder.address}</p></p>
+      <p><strong>Customer state</strong> : <p>${neworder.state}</p></p>
+      <p><strong>Customer city</strong> : <p>${neworder.city}</p></p>
+      <p><strong>Order date</strong> : <p>${neworder.order_date}</p></p>
+      <p><strong>Delivery date</strong> : <p>${neworder.delivery_date}</p></p>
+      <p><strong>Delivery time</strong> : <p>${neworder.time}</p></p>
+      <p><strong>Mode of payment</strong> : <p>${neworder.payment}</p></p>
       <br>
       <br>
-      <strong>Please remember to match the order id provided via this email with the order id mentioned on your package</strong>`
+      <strong>Please remember to match the order id provided via this email with the order id mentioned on your package</strong>
+      <br>
+      <p>If this order was not made by you or you feel to cancel the order, click the link below:</p>
+      <strong>Order can be cancelled only if requested by visiting the link below within 5 minutes</strong>
+      <br>
+      <a href="https://tastebuds-in.herokuapp.com/cancel-order/${orderid}/${cancelordertoken}">Cancel this order</a>`
     }
     await mailer.send(ordermailer)
     req.session.cart = null;

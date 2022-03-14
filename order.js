@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
+    confirmation: {type: String, required: true},
     user: {type: String, required: true},
     cart: {type: Object, required: true},
     zip: {type: Number, required: true},
@@ -12,7 +13,7 @@ var schema = new Schema({
     email: {type: String, required:true},
     name: {type: String, required: true},
     order_date: {type: String, required: true},
-    delivery_date: {type: String},
+    delivery_date: {type: String,required: true},
     time: {type:String, required:true},
     payment: {type:String, required: true},
     cardnumber: {type:Number,},
