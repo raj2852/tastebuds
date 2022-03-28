@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Your orders</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <!--bootstrap css and js-->
+      <link rel="stylesheet" href="https://stackpath. bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+      <!--Font-awesome cdn-->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+      <link rel="icon" type="x-image/icon" href="favicon.ico">
+      <link rel="stylesheet" type="text/css" href="myorders.css">
+    </head>
+    <body>
+        <div class="banner">
+    <button type="post" style="margin-left: 6px;margin-top: 10px;"><a href="/index"><font color="#001f3f">Home Page</font></a></button>
+    <div id="account">
+    		<a onclick="fn()"><i class="fa fa-user-circle-o fa-2x"></i></a>
+   		</div>
+    	<div id="menu">
+	    	<ul>
+	    		<li><a href="/profile"><font color="blank">Profile</a></li>
+	    		<li><a href="/cart"><font color="blank">Cart</a></li>
+				<li><a href="/fav"><font color="blank">Favourites</a></li>
+                <li><a href="/myorders" target="blank"><font color="blank">Orders</font></a></li>
+	    		<li><a href="/logout" target="blank"><font color="blank">Logout!</font></a></li>
+	    	</ul>
+	    </div>
+	<p style="margin-left: 6px;margin-top: 10px;"><font color="#e33745"><a href="/index">Home</a> > <a href="/main">Dishes</a> > Myorders</font></p>
+	<br>
+	<h1><b>Your Orders<i class="fa fa-shopping-cart"></i></b></h1>
+	<br>
+  </div>
+    <div class="main" style=" position: relative;">
+    <br>
+  <div class="selector" style="width:80%;margin: 0 auto; margin-top: 20px;">
+   {{# if orders}} 
+        <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <ul class="list-group">
+                {{# each orders }}
+                    <li class="list-group-item">
+                        <strong>Order ID: {{this._id}}</strong>
+                        <br>
+                        <strong>Items ordered: *The items won't be shown here, please check the related confirmation mail sent to the email id for items*</strong>
+                        <br>
+                        <span >Name: {{this.name}}</span>
+                        <br>
+                        <span>Email: {{this.email}}</span>
+                        <br>
+                        <span>Address: {{this.address}}</span>
+                        <br>
+                        <span>Phone number: {{this.phone}}</span>
+                        <br>
+                        <span>City: {{this.city}}</span>
+                        <br>
+                        <span>Pincode: {{this.zip}}</span>
+                        <br>
+                        <span>State: {{this.state}}</span>
+                        <br>
+                        <span>Order date and time: {{this.order_date}}</span>
+                        <br>
+                        <span>Delivery date: {{this.delivery_date}} (*If 'Today', it refers to the same date as date of order)</span>
+                        <br>
+                        <span>Delivery time: {{this.time}}()</span>
+                        <br>
+                        <span>Mode of payment: {{this.payment}}</span>
+                        <br>
+                    </li>
+                    <br>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    <br>
+{{ else }}
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h2 style="text-align: center;color:#fffde4;">You have not ordered anything yet. Try out the dishes and find your orders here.</h2>
+        </div>
+    </div>
+{{/if}}
+  </div> 
+    </body>
+    <script>
+        function fn(){
+	var div = document.getElementById("menu");
+	if(div.style.visibility==='hidden') {
+		div.style.visibility='visible';
+	}
+	else{
+		div.style.visibility='hidden';
+	}
+	window.onclick = function(event) {
+  if (event.target == div) {
+    div.style.visibility = "hidden";
+  }
+}
+}
+    </script>
+</html>

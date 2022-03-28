@@ -33,7 +33,7 @@ app.use(session({
   store: new MongoDBStore({uri: process.env.MONGO_URI,
 collection: 'mysession'}),
   cookie: {maxAge: null,
-  secure: true,
+  secure: false,
 }
 }));
 app.use(function(req, res, next) {
@@ -806,6 +806,33 @@ app.get("/submit",auth,(req,res) => {
   res.status(200).render('submit')
 })
 
+app.get("/myorders",auth, async(req, res)=>{
+  
+  const token = req.cookies.token;
+  const verifyUser = jwt.verify(token, process.env.SECRET_KEY);
+    //const user = await User.findOne({_id:verifyUser._id});
+  const _id = verifyUser._id.toString();
+    const response = await Order.find({user: _id});
+      res.status(200).render('myorders',{orders: response});
+    
+    //res.send("your orders");
+//   Order.findOne(_id, function(err, orders) {
+//       if (err) {
+//           return res.write('Error!');
+//       }
+//       var cart;
+//       orders.forEach(function(order) {
+//           cart = new Cart(order.cart);
+//           order.items = cart.generateArray();
+//       });
+//       res.render('order', { orders: orders });
+//  });
+//  }catch(err){
+//   res.status(400).send(err);
+//  }
+// res.status(200).render('myorders');
+});
+
 //logout page get request
 app.get("/logout", auth, async(req,res) => {
   try{
@@ -815,9 +842,11 @@ app.get("/logout", auth, async(req,res) => {
     const user = await User.findOne({_id:verifyUser._id})
     const ordermail = user.email;
     const ordername = user.first_name;
-    var cart = new Cart(req.session.cart);
-    var fav = new Fav(req.session.fav);
-    if(req.session.cart){
+    var cart = req.session.cart;
+    var fav = req.session.fav;
+    // console.log(cart);
+    // console.log(fav);
+    if( typeof req.session.cart !== "undefined" || req.session.cart !== null){
       function replace(key,value){
         if(key=="totalQty") return undefined;
         if(key=="totalPrice") return undefined;
@@ -844,11 +873,13 @@ app.get("/logout", auth, async(req,res) => {
         <br>
         <pre>${finalcart}</pre>
         <br>
-        <p>you left pending on your cart are waiting for your call!!. Hope to see you soon</p>`
+        <p>you left pending on your cart are waiting for your call!!. Hope to see you soon</p>
+        <br>
+        <strong>If you find undefined or null in place of items kindly ignore this email, it means you neither did store anything as favourites nor anything is left in your cart.</strong>`
       }
       await mailer.send(remainingcart);
     }
-    if(req.session.fav){
+    if(typeof req.session.fav !== "undefined" ||req.session.fav !== null){
       function replace(key,value){
         if(key=="totalQty") return undefined;
         if(key=="totalPrice") return undefined;
@@ -875,7 +906,9 @@ app.get("/logout", auth, async(req,res) => {
         <br>
         <pre>${finalfav}</pre>
         <br>
-        <p>We wish to serve them on your next order. Hope to see you soon.</p>`
+        <p>We wish to serve them on your next order. Hope to see you soon.</p>
+        <br>
+        <strong>If you find undefined or null in place of items kindly ignore this email, it means you neither did store anything as favourites nor anything is left in your cart.</strong>`
       }
       await mailer.send(favadded);
     }
@@ -888,6 +921,7 @@ app.get("/logout", auth, async(req,res) => {
    await req.user.save();
   }
   catch(err){
+    console.log(err);
     res.status(400).send("no logged in user data");
   }
 })
@@ -901,29 +935,6 @@ app.get("/error", (req,res)=> {
 app.get("*",(req,res) => {
   res.status(400).redirect('/error')
 })
-
-
-/*app.get('/order',auth, async(req, res)=>{
-  try{
-  const token = req.cookies.token;
-  const verifyUser = jwt.verify(token, process.env.SECRET_KEY);
-    const user = await User.findOne({_id:verifyUser._id});
-  const _id = await verifyUser._id;
-  Order.findOne(_id, function(err, orders) {
-      if (err) {
-          return res.write('Error!');
-      }
-      var cart;
-      orders.forEach(function(order) {
-          cart = new Cart(order.cart);
-          order.items = cart.generateArray();
-      });
-      res.render('order', { orders: orders });
-  });
-}catch(err){
-  res.status(400).send(err);
-}
-});*/
 
 //connecting with database
 require('./db.js');

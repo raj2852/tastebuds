@@ -1,0 +1,97 @@
+body{
+    min-height: 100vh;
+    background-color: #e33745;
+}
+.banner{
+    background-size: cover;
+  position: relative;
+  background-color: #f7eeee;
+  border-radius: 0 0 50% 50%/0 0 15% 15%;
+   height: auto; 
+   padding: 20px;
+}
+button{
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #e0e0e0;
+    background-color: #fffde4;
+    color: #e33745;
+    box-shadow:  5px 5px 10px #bebebe,
+           -5px -5px 10px #ffffff;
+  font-weight: 30px;
+  }
+  button:hover{
+  height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #e0e0e0;
+    background-color: #fffde4;
+    color: #e33745;
+    box-shadow: inset 5px 5px 6px #bebebe,
+              inset -5px -5px 6px #ffffff;
+  }
+  a{
+      text-decoration: none;
+      color: #e33745;
+  }
+  a:hover{
+      color: #001f3f;
+  text-decoration: none;
+  }
+  #account{
+      float: right;
+      border-color: #fff;
+      border-width: 4px;
+      color: #fff;
+      background-color: #f7eeee;
+      height: 45px;
+      width: 45px;
+      border-radius: 25px;
+      margin-top: 20px;
+      margin-right: 10px;
+      font-size: 24px;
+      z-index: 1000;
+      box-shadow:  5px 5px 10px #bebebe,
+          -5px -5px 10px #ffffff;
+  }
+  #account:hover{
+     box-shadow: inset 5px 5px 6px #bebebe,
+             inset -5px -5px 6px #ffffff;
+  }
+  #menu{
+      position: absolute;
+      top: 80px;
+      background: #fff;
+      width: 140px;
+      border-radius: 5px;
+      transition: 0.1s;
+      right: 10px;
+     visibility: hidden;
+     z-index: 2000;	 	
+  }
+  .menu::before{
+      content: '';
+      position: absolute;
+      top: -5px;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      transform: rotate(45deg);
+  }
+  #menu ul li{
+      list-style: none;
+      padding: 10px;
+     align-items: center;
+     justify-content: center;
+  }
+  
+  h1{
+      color: #e33745;
+      font-weight: 300;
+      text-align: center;
+  
+  }
