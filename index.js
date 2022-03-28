@@ -33,7 +33,7 @@ app.use(session({
   store: new MongoDBStore({uri: process.env.MONGO_URI,
 collection: 'mysession'}),
   cookie: {maxAge: null,
-  secure: false,
+  secure: true,
 }
 }));
 app.use(function(req, res, next) {
